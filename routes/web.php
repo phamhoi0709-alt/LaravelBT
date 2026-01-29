@@ -40,3 +40,24 @@ Route::get('/banco/{n}', function ($n) {
 Route::fallback(function () {
     return view('error.404');
 });
+use App\Http\Controllers\AuthController;
+use App\Http\Middleware\CheckAge;
+
+// Commit 1
+Route::get('/signin', [AuthController::class, 'SignIn']);
+Route::post('/check-signin', [AuthController::class, 'CheckSignIn']);
+
+// Commit 2
+Route::get('/input-age', function () {
+    return view('input-age');
+});
+
+Route::post('/save-age', function (Illuminate\Http\Request $request) {
+    session(['user_age' => $request->age]); // Lưu tuổi vào session
+    return "Đã lưu tuổi. Hãy thử truy cập trang bảo vệ.";
+});
+
+// Trang yêu cầu Middleware kiểm tra tuổi
+Route::get('/protected-content', function () {
+    return "Chúc mừng! Bạn đủ tuổi để xem nội dung này.";
+})->middleware(CheckAge::class);
