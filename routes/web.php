@@ -27,7 +27,7 @@ Route::prefix('product')->group(function () {
 });
 
 // 3. Thông tin sinh viên với giá trị mặc định
-Route::get('/sinhvien/{name?}/{mssv?}', function ($name = "Hoang Duc Luan", $mssv = "0060567") {
+Route::get('/sinhvien/{name?}/{mssv?}', function ($name = "Pham Duc Hoi", $mssv = "0170467") {
     return "Thông tin sinh viên: " . $name . " - MSSV: " . $mssv;
 })->name('sinhvien.info');
 
